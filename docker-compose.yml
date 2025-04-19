@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   web:
     image: php:8.2-apache
@@ -11,16 +9,17 @@ services:
       - ./php.ini:/usr/local/etc/php/php.ini
     depends_on:
       - db
+    command: bash -c "docker-php-ext-install mysqli && apache2-foreground"
 
   db:
     image: mysql:8.0
     container_name: animatch-db
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: rootpass
+      MYSQL_ROOT_PASSWORD: hyzrhela
       MYSQL_DATABASE: animatch
-      MYSQL_USER: user
-      MYSQL_PASSWORD: pass
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: adminadmin
     volumes:
       - db_data:/var/lib/mysql
 
