@@ -18,10 +18,9 @@ jobs:
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
-      - name: Copy files to Azure VM
+      - name: Copy project files to Azure VM
         run: |
-          ssh -o StrictHostKeyChecking=no azureuser@20.224.160.150 "rm -rf ~/animatch && mkdir ~/animatch"
-          scp -r * azureuser@20.224.160.150:~/animatch/
+          rsync -avz --exclude='.git' --exclude='.github' --exclude='README.md' ./ azureuser@20.224.160.150:~/animatch/
 
       - name: Restart Docker Compose
         run: |
@@ -29,5 +28,5 @@ jobs:
           cd ~/animatch
           docker compose down
           docker compose up -d --build
+          docker exec animatch-web chown -R www-data:www-data /var/www/html
           EOF
-
