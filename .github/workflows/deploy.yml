@@ -24,9 +24,12 @@ jobs:
           echo "${{ secrets.KNOWN_HOSTS }}" >> ~/.ssh/known_hosts
           chmod 644 ~/.ssh/known_hosts
 
-      - name: Copy project files to Azure VM
+      - name: SSH into Azure VM and pull code from Git
         run: |
-          rsync -avz -e "ssh -o StrictHostKeyChecking=no" --exclude='.git' --exclude='.github' --exclude='README.md' ./ azureuser@20.224.160.150:~/animatch/
+          ssh -o StrictHostKeyChecking=no azureuser@20.224.160.150 << 'EOF'
+          cd ~/animatch
+          git pull origin main
+          EOF
 
       - name: Restart Docker Compose and set permissions
         run: |
