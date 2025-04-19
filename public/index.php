@@ -1,4 +1,3 @@
-<!-- hoooon2 -->
 <!DOCTYPE html>
 <html lang="fr">
 <head>
