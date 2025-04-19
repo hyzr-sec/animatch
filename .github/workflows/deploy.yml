@@ -18,11 +18,17 @@ jobs:
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
+      - name: Set up known_hosts
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.KNOWN_HOSTS }}" >> ~/.ssh/known_hosts
+          chmod 644 ~/.ssh/known_hosts
+
       - name: Copy project files to Azure VM
         run: |
-          rsync -avz --exclude='.git' --exclude='.github' --exclude='README.md' ./ azureuser@20.224.160.150:~/animatch/
+          rsync -avz -e "ssh -o StrictHostKeyChecking=no" --exclude='.git' --exclude='.github' --exclude='README.md' ./ azureuser@20.224.160.150:~/animatch/
 
-      - name: Restart Docker Compose
+      - name: Restart Docker Compose and set permissions
         run: |
           ssh -o StrictHostKeyChecking=no azureuser@20.224.160.150 << 'EOF'
           cd ~/animatch
