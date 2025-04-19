@@ -7,6 +7,12 @@
   <link rel="icon" href="assets/images/favicon.png" type="image/x-icon">
   <link rel="stylesheet" href="assets/css/style.css">
   <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f7f9fc;
+      color: #333;
+    }
     header, footer {
       text-align: center;
       background: #3498db;
@@ -15,16 +21,33 @@
     }
     .main-section {
       text-align: center;
-      margin: 40px 0;
+      margin: 40px 20px;
     }
     .main-section img {
       max-width: 100%;
       height: auto;
       border-radius: 10px;
       animation: float 3s ease-in-out infinite;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+    .links {
+      margin-top: 20px;
     }
     .links a {
+      display: inline-block;
       margin: 10px;
+      padding: 12px 24px;
+      background-color: #3498db;
+      color: white;
+      text-decoration: none;
+      border-radius: 8px;
+      transition: background-color 0.3s ease;
+    }
+    .links a:hover {
+      background-color: #2980b9;
+    }
+    h2 {
+      color: #2c3e50;
     }
     @keyframes float {
       0% { transform: translateY(0px); }
@@ -50,13 +73,13 @@
 
   <section class="main-section">
     <h2>À propos de nous</h2>
-    <p>Animatch est une plateforme dédiée à connecter les animaux sans abri avec des personnes aimantes. Notre mission est de donner à chaque animal une maison chaleureuse.</p>
-    <img src="assets/images/about_us.jpg" alt="Notre équipe">
+    <p>Chez Animatch, nous croyons que chaque animal mérite une seconde chance. Nous aidons les refuges à trouver des foyers aimants pour leurs pensionnaires. Grâce à notre plateforme, nous simplifions le processus d’adoption pour les familles et offrons plus de visibilité aux animaux qui attendent d’être adoptés.</p>
+    <p>En adoptant, vous sauvez une vie, réduisez la surpopulation des refuges et recevez en retour un amour inconditionnel. Ensemble, nous pouvons faire une vraie différence.</p>
   </section>
 
   <section class="main-section">
     <h2>Contactez-nous</h2>
-    <p>Email : contact@animatch.tn</p>
+    <p>Email : <a href="mailto:contact@animatch.tn">contact@animatch.tn</a></p>
     <p>Téléphone : +216 00 000 000</p>
     <p>Adresse : 123 Rue des Animaux, Ariana, Tunisie</p>
   </section>
