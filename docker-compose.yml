@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+  web:
+    image: php:8.2-apache
+    container_name: animatch-web
+    ports:
+      - "8080:80"
+    volumes:
+      - ./public:/var/www/html
+      - ./php.ini:/usr/local/etc/php/php.ini
+    depends_on:
+      - db
+
+  db:
+    image: mysql:8.0
+    container_name: animatch-db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpass
+      MYSQL_DATABASE: animatch
+      MYSQL_USER: user
+      MYSQL_PASSWORD: pass
+    volumes:
+      - db_data:/var/lib/mysql
+
+volumes:
+  db_data:
+
