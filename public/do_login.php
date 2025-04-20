@@ -4,6 +4,7 @@ require 'db.php';
 
 $email = $_POST['email'];
 $password = $_POST['password'];
+$password_hash = md5($password);
 
 // Check user
 $stmt = $conn->prepare("SELECT id, name, email, phone, address, social_status, profile_pic, password FROM users WHERE email = ?");
@@ -12,7 +13,7 @@ $stmt->execute();
 $result = $stmt->get_result();
 
 if ($user = $result->fetch_assoc()) {
-    if (password_verify($password, $user['password'])) {
+    if (password_verify($password_hash, $user['password'])) {
         // Set session variables
         $_SESSION['user_id'] = $user['id'];
         $_SESSION['user'] = $user['name'];
