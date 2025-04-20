@@ -38,6 +38,6 @@ jobs:
         run: |
           ssh -o StrictHostKeyChecking=no azureuser@20.224.160.150 << 'EOF'
           cd ~/animatch
-          docker compose down
-          docker compose up -d --build
+          docker-compose down
+          docker-compose up -d --build
           EOF
