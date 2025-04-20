@@ -1,24 +1,33 @@
 <?php
 session_start();
+require 'db.php';
+
 $email = $_POST['email'];
 $password = $_POST['password'];
-$password_hash = md5($password);
 
-$conn = new mysqli("db", "admin", "adminadmin", "animatch");
-if ($conn->connect_error) die("Connection failed: " . $conn->connect_error);
-
-$sql = "SELECT * FROM users WHERE email=? AND password=?";
-$stmt = $conn->prepare($sql);
-$stmt->bind_param("ss", $email, $password_hash);
+// Check user
+$stmt = $conn->prepare("SELECT id, name, email, phone, address, social_status, profile_pic, password FROM users WHERE email = ?");
+$stmt->bind_param("s", $email);
 $stmt->execute();
 $result = $stmt->get_result();
 
-if ($result->num_rows > 0) {
-    $_SESSION['user'] = $email;
-    header("Location: dashboard.php");
+if ($user = $result->fetch_assoc()) {
+    if (password_verify($password, $user['password'])) {
+        // Set session variables
+        $_SESSION['user_id'] = $user['id'];
+        $_SESSION['user'] = $user['name'];
+        $_SESSION['email'] = $user['email'];
+        $_SESSION['phone'] = $user['phone'];
+        $_SESSION['address'] = $user['address'];
+        $_SESSION['social_status'] = $user['social_status'];
+        $_SESSION['profile_pic'] = $user['profile_pic'];
+
+        header("Location: dashboard.php");
+        exit;
+    } else {
+        echo "Wrong password.";
+    }
 } else {
-    echo "Login failed";
+    echo "User not found.";
 }
-$stmt->close();
-$conn->close();
 ?>

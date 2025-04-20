@@ -1,4 +1,5 @@
 <?php
+require_once 'db.php';
 $name = $_POST['name'];
 $email = $_POST['email'];
 $password = $_POST['password'];
@@ -12,9 +13,6 @@ $password_hash = md5($password);
 
 move_uploaded_file($_FILES['profile_pic']['tmp_name'], $target);
 $profile_pic = $target;
-
-$conn = new mysqli("db", "admin", "adminadmin", "animatch");
-if ($conn->connect_error) die("Connection failed: " . $conn->connect_error);
 
 $sql = "INSERT INTO users (name, email, password, phone, address, description, social_status, profile_pic) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 $stmt = $conn->prepare($sql);
