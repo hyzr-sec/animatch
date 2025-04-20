@@ -6,6 +6,8 @@ if (!isset($_SESSION['user']) || $_SESSION['role'] !== 'admin') {
     header("Location: login.php");
     exit;
 }
+$isAdmin = isset($_SESSION['role']) && $_SESSION['role'] === 'admin';
+$target = $isAdmin ? 'admin.php' : 'dashboard.php';
 
 $query = "SELECT id, name, email, role, social_status, created_at FROM users WHERE role != 'admin'";
 $result = $conn->query($query);
@@ -98,7 +100,7 @@ if (isset($_GET['delete_id'])) {
 <body>
     <header class="navbar">
         <h1>Gérer les utilisateurs</h1>
-        <a href="dashboard.php">Tableau de bord</a>
+        <a href="<?= $target ?>">Tableau de bord</a>
     </header>
 
     <main class="users-container">
