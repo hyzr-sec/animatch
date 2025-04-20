@@ -36,7 +36,14 @@
       cursor: pointer;
     }
     button:hover {
-      background:rgb(1, 72, 64);
+      background: rgb(1, 72, 64);
+    }
+    .secondary-button {
+      background: #ccc;
+      color: #333;
+    }
+    .secondary-button:hover {
+      background: #bbb;
     }
   </style>
 </head>
@@ -46,6 +53,9 @@
     <input type="text" name="email" placeholder="Email" required />
     <input type="password" name="password" placeholder="Password" required />
     <button type="submit">Login</button>
+    <a href="register.php">
+      <button type="button" class="secondary-button">Register</button>
+    </a>
   </form>
 </body>
 </html>

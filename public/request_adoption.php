@@ -1,6 +1,6 @@
 <?php
 session_start();
-if (!isset($_SESSION['user'])) die("Login first.");
+if (!isset($_SESSION['user'])) header("Location: login.php");
 $id = $_POST['animal_id'];
 
 $conn = new mysqli("db", "admin", "adminadmin", "animatch");
