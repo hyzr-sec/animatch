@@ -4,12 +4,12 @@
   <meta charset="UTF-8">
   <title>Admin - Manage Animals</title>
   <link rel="stylesheet" href="assets/css/admin_dashboard.css">
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <style>
     .animal-card { border: 1px solid #ddd; padding: 10px; margin: 10px; width: 200px; display: inline-block; vertical-align: top; }
     .animal-card img { width: 100%; height: auto; }
     .actions { margin-top: 10px; display: flex; gap: 5px; }
     .actions form { display: inline; }
+    #deleteModal { display: none; position: fixed; background: white; padding: 20px; border: 1px solid #aaa; top: 50%; left: 50%; transform: translate(-50%, -50%); }
   </style>
 </head>
 <body>
@@ -38,30 +38,49 @@
   </div>
 
   <!-- Delete Confirmation Modal -->
-  <div id="deleteModal" style="display:none;">
+  <div id="deleteModal">
     <h3>Êtes-vous sûr de vouloir supprimer cet animal ?</h3>
     <button id="confirmDelete">Oui</button>
     <button id="cancelDelete">Non</button>
   </div>
 
   <script>
-    $(document).ready(function() {
-      $(".delete-animal").click(function() {
-        var animalId = $(this).data("id");
-        $("#deleteModal").show();
-        $("#confirmDelete").click(function() {
-          $.post("delete_animal.php", { id: animalId }, function(response) {
-            alert(response);
-            location.reload();
-          });
-        });
-        $("#cancelDelete").click(function() {
-          $("#deleteModal").hide();
-        });
-      });
+    const deleteButtons = document.querySelectorAll(".delete-animal");
+    const editButtons = document.querySelectorAll(".edit-animal");
+    const deleteModal = document.getElementById("deleteModal");
+    const confirmBtn = document.getElementById("confirmDelete");
+    const cancelBtn = document.getElementById("cancelDelete");
 
-      $(".edit-animal").click(function() {
-        var animalId = $(this).data("id");
+    let currentAnimalId = null;
+
+    deleteButtons.forEach(btn => {
+      btn.addEventListener("click", () => {
+        currentAnimalId = btn.getAttribute("data-id");
+        deleteModal.style.display = "block";
+      });
+    });
+
+    confirmBtn.addEventListener("click", () => {
+      fetch("delete_animal.php", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: "id=" + encodeURIComponent(currentAnimalId)
+      })
+      .then(res => res.text())
+      .then(response => {
+        alert(response);
+        location.reload();
+      });
+    });
+
+    cancelBtn.addEventListener("click", () => {
+      deleteModal.style.display = "none";
+      currentAnimalId = null;
+    });
+
+    editButtons.forEach(btn => {
+      btn.addEventListener("click", () => {
+        const animalId = btn.getAttribute("data-id");
         window.location.href = "edit_animal.php?id=" + animalId;
       });
     });
