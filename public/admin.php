@@ -6,56 +6,56 @@ if (!isset($_SESSION['user']) || $_SESSION['role'] !== 'admin') {
 }
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
   <meta charset="UTF-8">
-  <title>Admin Dashboard</title>
+  <title>Tableau de Bord Admin</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/css/admin.css">
+  <link rel="stylesheet" href="assets/css/admin_dashboard.css">
 </head>
 <body>
 
   <header>
-    <h1>Welcome, Admin <?php echo htmlspecialchars($_SESSION['user']); ?></h1>
+    <h1>Bienvenue, Admin <?php echo htmlspecialchars($_SESSION['user']); ?></h1>
   </header>
 
   <nav>
-    <a href="add_animal.php">Add Animal</a>
-    <a href="view_animals.php">View Animals</a>
-    <a href="view_requests.php">Adoption Requests</a>
-    <a href="manage_users.php">Manage Users</a>
-    <a href="logout.php">Logout</a>
+    <a href="add_animal.php">Ajouter un Animal</a>
+    <a href="view_animals.php">Voir les Animaux</a>
+    <a href="view_requests.php">Demandes d'Adoption</a>
+    <a href="manage_users.php">Gérer les Utilisateurs</a>
+    <a href="logout.php">Se Déconnecter</a>
   </nav>
 
   <main class="dashboard">
     <div class="card">
-      <h3>Add a New Animal</h3>
-      <p>Upload and list new animals available for adoption.</p>
-      <a href="add_animal.php">Add Now →</a>
+      <h3>Ajouter un Nouvel Animal</h3>
+      <p>Téléversez et listez les nouveaux animaux disponibles à l'adoption.</p>
+      <a href="add_animal.php">Ajouter Maintenant →</a>
     </div>
 
     <div class="card">
-      <h3>View All Animals</h3>
-      <p>Check and manage existing animal entries.</p>
-      <a href="view_animals.php">View Animals →</a>
+      <h3>Voir Tous les Animaux</h3>
+      <p>Consultez et gérez les animaux déjà enregistrés.</p>
+      <a href="view_animals.php">Voir les Animaux →</a>
     </div>
 
     <div class="card">
-      <h3>Review Requests</h3>
-      <p>Approve or reject pending adoption requests.</p>
-      <a href="view_requests.php">See Requests →</a>
+      <h3>Revoir les Demandes</h3>
+      <p>Approuvez ou rejetez les demandes d'adoption en attente.</p>
+      <a href="view_requests.php">Voir les Demandes →</a>
     </div>
 
     <div class="card">
-      <h3>Manage Users</h3>
-      <p>View or remove registered users in the system.</p>
-      <a href="manage_users.php">Manage →</a>
+      <h3>Gérer les Utilisateurs</h3>
+      <p>Consultez ou supprimez les utilisateurs enregistrés.</p>
+      <a href="manage_users.php">Gérer →</a>
     </div>
   </main>
 
   <footer>
-    &copy; <?php echo date("Y"); ?> AniMatch Admin Panel
+    &copy; <?php echo date("Y"); ?> Tableau de Bord Admin - AniMatch
   </footer>
 
 </body>
