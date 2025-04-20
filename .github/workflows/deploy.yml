@@ -28,6 +28,8 @@ jobs:
         run: |
           ssh -o StrictHostKeyChecking=no azureuser@20.224.160.150 << 'EOF'
           cd ~/animatch
+          git add .
+          git commit -m "serverupdate"
           git pull origin main
           EOF
 
