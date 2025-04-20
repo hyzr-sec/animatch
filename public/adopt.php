@@ -1,3 +1,8 @@
+<?php
+    session_start();
+    $isAdmin = isset($_SESSION['role']) && $_SESSION['role'] === 'admin';
+    $target = $isAdmin ? 'admin.php' : 'dashboard.php';
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,14 +13,8 @@
 <body>
   <header class="navbar">
     <h1>Adopt a Pet</h1>
-    <?php
-    session_start();
-    $isAdmin = isset($_SESSION['role']) && $_SESSION['role'] === 'admin';
-    $target = $isAdmin ? 'admin.php' : 'dashboard.php';
-    ?>
     <a href="<?= $target ?>">Dashboard</a>
   </header>
-
   <main class="animal-list">
     <?php
     $conn = new mysqli("db", "admin", "adminadmin", "animatch");
