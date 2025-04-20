@@ -10,16 +10,20 @@
     <h1>Adopt a Pet</h1>
     <a href="dashboard.php">Dashboard</a>
   </header>
+
   <main class="animal-list">
     <?php
     $conn = new mysqli("db", "admin", "adminadmin", "animatch");
     $res = $conn->query("SELECT * FROM animals");
     while ($row = $res->fetch_assoc()) {
-      $img = $row['image'] ?? 'assets/img/default.png';
+      $img = $row['image_path'] ?? 'assets/images/animals/default.jpeg';
       echo "<div class='animal-card'>
               <img src='$img' alt='Animal image'>
               <h3>{$row['name']}</h3>
-              <p>{$row['type']}</p>
+              <p>Espèce: {$row['species']}</p>
+              <p>Âge: {$row['age']} ans</p>
+              <p>Sexe: {$row['gender']}</p>
+              <p>Statut: {$row['status']}</p>
               <a href='animal.php?id={$row['id']}'>Details</a>
             </div>";
     }
