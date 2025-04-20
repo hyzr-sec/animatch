@@ -13,8 +13,7 @@ $stmt->execute();
 $result = $stmt->get_result();
 
 if ($user = $result->fetch_assoc()) {
-    if (password_verify($password_hash, $user['password'])) {
-        // Set session variables
+    if ($password_hash == $user['password']) {
         $_SESSION['user_id'] = $user['id'];
         $_SESSION['user'] = $user['name'];
         $_SESSION['email'] = $user['email'];
