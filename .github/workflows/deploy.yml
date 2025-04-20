@@ -30,6 +30,7 @@ jobs:
           cd ~/animatch
           git add .
           git commit -m "serverupdate"
+          git config pull.rebase false
           git pull origin main
           EOF
 
