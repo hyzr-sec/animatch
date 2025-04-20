@@ -37,5 +37,4 @@ jobs:
           cd ~/animatch
           docker compose down
           docker compose up -d --build
-          docker exec animatch-web chown -R www-data:www-data /var/www/html
           EOF
