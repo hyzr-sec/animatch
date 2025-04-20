@@ -29,14 +29,14 @@
     }
     button {
       padding: 0.75rem;
-      background: #4CAF50;
+      background: #00796b;
       color: white;
       border: none;
       border-radius: 4px;
       cursor: pointer;
     }
     button:hover {
-      background: #45a049;
+      background:rgb(1, 72, 64);
     }
   </style>
 </head>
