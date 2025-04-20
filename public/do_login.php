@@ -7,7 +7,7 @@ $password = $_POST['password'];
 $password_hash = md5($password);
 
 // Check user
-$stmt = $conn->prepare("SELECT id, name, email, phone, address, social_status, profile_pic, password FROM users WHERE email = ?");
+$stmt = $conn->prepare("SELECT id, name, email, phone, address, social_status, profile_pic, password, role FROM users WHERE email = ?");
 $stmt->bind_param("s", $email);
 $stmt->execute();
 $result = $stmt->get_result();
@@ -21,8 +21,13 @@ if ($user = $result->fetch_assoc()) {
         $_SESSION['address'] = $user['address'];
         $_SESSION['social_status'] = $user['social_status'];
         $_SESSION['profile_pic'] = $user['profile_pic'];
+        $_SESSION['role'] = $user['role']; // store the role
 
-        header("Location: dashboard.php");
+        if ($user['role'] === 'admin') {
+            header("Location: admin.php");
+        } else {
+            header("Location: dashboard.php");
+        }
         exit;
     } else {
         echo "Wrong password.";
