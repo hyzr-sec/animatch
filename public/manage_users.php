@@ -1,8 +1,14 @@
 <?php
+session_start();
+require_once "db.php";
+if (!isset($_SESSION['user']) || $_SESSION['role'] !== 'admin') {
+    header("Location: login.php");
+    exit;
+}
 require_once "db.php";
 
 // Fetch all users from the database
-$query = "SELECT id, name, email, role, status, created_at FROM users";
+$query = "SELECT id, name, email, role, social_status, created_at FROM users";
 $result = $conn->query($query);
 
 // Handle delete user request
@@ -52,7 +58,7 @@ if (isset($_GET['delete_id'])) {
                             <td><?= htmlspecialchars($row['name']) ?></td>
                             <td><?= htmlspecialchars($row['email']) ?></td>
                             <td><?= ucfirst($row['role']) ?></td>
-                            <td><?= ucfirst($row['status']) ?></td>
+                            <td><?= ucfirst($row['social_status']) ?></td>
                             <td><?= $row['created_at'] ?></td>
                             <td>
                                 <a href="edit_user.php?id=<?= $row['id'] ?>" class="btn-edit">Edit</a>
