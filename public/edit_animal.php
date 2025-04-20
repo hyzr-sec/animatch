@@ -9,7 +9,7 @@ $animal = $res->fetch_assoc();
 <head>
   <meta charset="UTF-8">
   <title>Admin - Modifier Animal</title>
-  <link rel="stylesheet" href="assets/css/admin_dashboard.css">
+  <link rel="stylesheet" href="assets/css/add_animal.css">
 </head>
 <body>
   <h1>Modifier l'Animal</h1>

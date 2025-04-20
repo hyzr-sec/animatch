@@ -30,7 +30,7 @@ if (isset($_GET['id'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit User</title>
-    <link rel="stylesheet" href="assets/css/admin_dashboard.css">
+    <link rel="stylesheet" href="assets/css/add_animal.css">
 </head>
 <body>
     <header class="navbar">
