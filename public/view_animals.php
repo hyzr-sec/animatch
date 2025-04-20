@@ -14,7 +14,7 @@
 </head>
 <body>
   <h1>Gestion des Animaux</h1>
-  <a href="ajouter_animal.php">➕ Ajouter un Animal</a>
+  <a href="add_animal.php">➕ Ajouter un Animal</a>
   <div class="animal-list">
     <?php
     require_once "db.php";
