@@ -4,6 +4,19 @@
   <meta charset="UTF-8">
   <title>Animal Details</title>
   <link rel="stylesheet" href="assets/css/style.css">
+  <style>
+        button {
+      padding: 0.75rem;
+      background: #00796b;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: rgb(1, 72, 64);
+    }
+  </style>
 </head>
 <body>
   <main class="animal-detail">
