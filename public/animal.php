@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <title>Animal Details</title>
   <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="icon" href="assets/images/favicon.png" type="image/x-icon">
   <style>
         button {
       padding: 0.75rem;

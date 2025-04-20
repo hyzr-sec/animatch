@@ -31,6 +31,7 @@ if (isset($_GET['id'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit User</title>
     <link rel="stylesheet" href="assets/css/add_animal.css">
+    <link rel="icon" href="assets/images/favicon.png" type="image/x-icon">
 </head>
 <body>
     <header class="navbar">

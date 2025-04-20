@@ -9,6 +9,7 @@
   <meta charset="UTF-8">
   <title>Adopt a Pet</title>
   <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="icon" href="assets/images/favicon.png" type="image/x-icon">
 </head>
 <body>
   <header class="navbar">

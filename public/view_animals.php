@@ -12,6 +12,7 @@ if (!isset($_SESSION['user']) || $_SESSION['role'] !== 'admin') {
   <meta charset="UTF-8">
   <title>Admin - Manage Animals</title>
   <link rel="stylesheet" href="assets/css/admin_dashboard.css">
+  <link rel="icon" href="assets/images/favicon.png" type="image/x-icon">
   <style>
     .animal-card { border: 1px solid #ddd; padding: 10px; margin: 10px; width: 200px; display: inline-block; vertical-align: top; }
     .animal-card img { width: 100%; height: auto; }

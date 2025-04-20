@@ -14,6 +14,7 @@ if (!isset($_SESSION['user'])){
   <title>Dashboard</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap">
   <link rel="stylesheet" href="assets/css/dashboard.css">
+  <link rel="icon" href="assets/images/favicon.png" type="image/x-icon">
 </head>
 <body>
   <header class="navbar">

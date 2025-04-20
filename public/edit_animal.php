@@ -10,6 +10,7 @@ $animal = $res->fetch_assoc();
   <meta charset="UTF-8">
   <title>Admin - Modifier Animal</title>
   <link rel="stylesheet" href="assets/css/add_animal.css">
+  <link rel="icon" href="assets/images/favicon.png" type="image/x-icon">
 </head>
 <body>
   <h1>Modifier l'Animal</h1>

@@ -26,6 +26,7 @@ $result = $conn->query($query);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin - View Adoption Requests</title>
     <link rel="stylesheet" href="assets/css/admin_dashboard.css">
+    <link rel="icon" href="assets/images/favicon.png" type="image/x-icon">
 </head>
 <body>
     <header class="navbar">

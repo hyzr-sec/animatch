@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <title>Register</title>
   <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="icon" href="assets/images/favicon.png" type="image/x-icon">
 </head>
 <body>
   <main class="form-container">

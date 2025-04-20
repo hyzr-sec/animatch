@@ -3,6 +3,7 @@
 <html>
 <head>
   <title>Login</title>
+  <link rel="icon" href="assets/images/favicon.png" type="image/x-icon">
   <style>
     body {
       font-family: 'Inter', sans-serif;
