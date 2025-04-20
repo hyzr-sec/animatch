@@ -10,14 +10,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $status = $_POST['status'];
 
     // Handle image upload
-    $imagePath = 'assets/images/animals/default.png';
+    $imagePath = 'assets/images/animals/default.jpeg';
     if (isset($_FILES['image']) && $_FILES['image']['error'] == 0) {
         $imagePath = 'assets/images/animals/' . basename($_FILES['image']['name']);
         move_uploaded_file($_FILES['image']['tmp_name'], $imagePath);
     }
 
     $stmt = $conn->prepare("INSERT INTO animals (name, species, breed, age, gender, description, image_path, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
-    $stmt->bind_param("sssiisss", $name, $species, $breed, $age, $gender, $description, $imagePath, $status);
+    $stmt->bind_param("sssissss", $name, $species, $breed, $age, $gender, $description, $imagePath, $status);
     $stmt->execute();
     header("Location: voir_animaux.php");
 }

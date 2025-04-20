@@ -13,7 +13,7 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'admin') {
 <head>
   <meta charset="UTF-8">
   <title>Admin - Ajouter un Animal</title>
-  <link rel="stylesheet" href="assets/css/admin_dashboard.css">
+  <link rel="stylesheet" href="assets/css/add_animal.css">
 </head>
 <body>
   <h1>Ajouter un Nouvel Animal</h1>
