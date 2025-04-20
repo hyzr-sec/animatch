@@ -19,6 +19,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $stmt = $conn->prepare("INSERT INTO animals (name, species, breed, age, gender, description, image_path, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
     $stmt->bind_param("sssissss", $name, $species, $breed, $age, $gender, $description, $imagePath, $status);
     $stmt->execute();
-    header("Location: voir_animaux.php");
+    header("Location: view_animals.php");
 }
 ?>
