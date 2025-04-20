@@ -8,7 +8,12 @@
 <body>
   <header class="navbar">
     <h1>Adopt a Pet</h1>
-    <a href="dashboard.php">Dashboard</a>
+    <?php
+    session_start();
+    $isAdmin = isset($_SESSION['role']) && $_SESSION['role'] === 'admin';
+    $target = $isAdmin ? 'admin.php' : 'dashboard.php';
+    ?>
+    <a href="<?= $target ?>">Dashboard</a>
   </header>
 
   <main class="animal-list">

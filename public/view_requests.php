@@ -1,7 +1,11 @@
 <?php
+session_start();
+if (!isset($_SESSION['user']) || $_SESSION['role'] !== 'admin') {
+    header("Location: login.php");
+    exit;
+}
 require_once "db.php";
 
-// Fetch adoption requests with animal and user details
 $query = "SELECT adoptions.id AS adoption_id, adoptions.adoption_date, adoptions.status AS adoption_status, 
                  adoptions.notes, 
                  animals.name AS animal_name, animals.species, animals.age, animals.gender, animals.image_path, 
