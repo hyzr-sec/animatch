@@ -9,13 +9,23 @@ if (!isset($_SESSION['user']) || $_SESSION['role'] !== 'admin') {
 $isAdmin = isset($_SESSION['role']) && $_SESSION['role'] === 'admin';
 $target = $isAdmin ? 'admin.php' : 'dashboard.php';
 
+// Récupérer le terme de recherche s'il existe
+$search = isset($_GET['search']) ? trim($_GET['search']) : '';
+
+// Construire la requête SQL en fonction de la recherche
 $query = "SELECT id, name, email, role, social_status, created_at FROM users WHERE role != 'admin'";
+if (!empty($search)) {
+    $search = $conn->real_escape_string($search);
+    $query .= " AND (name LIKE '%$search%' OR email LIKE '%$search%')";
+}
+$query .= " ORDER BY created_at DESC";
+
 $result = $conn->query($query);
 
 if (isset($_GET['delete_id'])) {
     $delete_id = intval($_GET['delete_id']);
     $conn->query("DELETE FROM users WHERE id = $delete_id");
-    header("Location: manage_users.php");
+    header("Location: manage_users.php" . (!empty($search) ? "?search=" . urlencode($search) : ""));
     exit;
 }
 ?>
@@ -24,89 +34,33 @@ if (isset($_GET['delete_id'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin - Gérer les utilisateurs</title>
-    <link rel="stylesheet" href="assets/css/admin_dashboard.css">
+    <title>Gérer les Utilisateurs - Animatch</title>
     <link rel="icon" href="assets/images/favicon.png" type="image/x-icon">
-    <style>
-        .users-table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        .users-table th, .users-table td {
-            padding: 0.75rem;
-            border: 1px solid #ddd;
-            text-align: left;
-            word-break: break-word;
-            overflow-wrap: anywhere;
-        }
-
-        .users-container {
-            padding: 2rem;
-        }
-
-        .btn-edit, .btn-delete {
-            margin-right: 0.5rem;
-            padding: 0.5rem 0.75rem;
-            text-decoration: none;
-            color: white;
-            background-color: #00796b;
-            border-radius: 4px;
-        }
-
-        .btn-delete {
-            background-color: #c0392b;
-        }
-
-        .search-form {
-            margin-bottom: 1rem;
-            display: flex;
-            gap: 0.5rem;
-        }
-
-        .search-form input {
-            padding: 0.5rem;
-            width: 250px;
-        }
-
-        .btn-search {
-            padding: 0.5rem 1rem;
-            background-color: #00796b;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-
-        .navbar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1rem 2rem;
-            background-color: #f5f5f5;
-        }
-
-        .navbar h1 {
-            margin: 0;
-        }
-
-        .navbar a {
-            text-decoration: none;
-            color: #00796b;
-            font-weight: bold;
-        }
-    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/manage_users.css">
 </head>
 <body>
-    <header class="navbar">
-        <h1>Gérer les utilisateurs</h1>
-        <a href="<?= $target ?>">Tableau de bord</a>
+    <header>
+        <div class="logo">
+            <img src="assets/images/logo.png" alt="Logo Animatch">
+            <span><strong>Animatch</strong></span>
+        </div>
+        <div class="welcome-text">
+            Bienvenue, <span><?php echo htmlspecialchars($_SESSION['user']); ?></span>
+        </div>
+        <nav>
+            <a href="admin.php"><i class="fas fa-arrow-left"></i> Retour</a>
+            <a href="logout.php"><i class="fas fa-sign-out-alt"></i> Déconnexion</a>
+        </nav>
     </header>
 
     <main class="users-container">
         <form method="get" action="manage_users.php" class="search-form">
-            <input type="text" name="search" placeholder="Rechercher par nom ou email..." />
-            <button type="submit" class="btn-search">Rechercher</button>
+            <input type="text" name="search" placeholder="Rechercher par nom ou email..." value="<?php echo htmlspecialchars($search); ?>" />
+            <button type="submit" class="btn-search">
+                <i class="fas fa-search"></i> Rechercher
+            </button>
         </form>
 
         <table class="users-table">
@@ -130,18 +84,28 @@ if (isset($_GET['delete_id'])) {
                             <td><?= htmlspecialchars($row['social_status'] ?? '-') ?></td>
                             <td><?= htmlspecialchars($row['created_at']) ?></td>
                             <td>
-                                <a href="edit_user.php?id=<?= $row['id'] ?>" class="btn-edit">Modifier</a>
-                                <a href="manage_users.php?delete_id=<?= $row['id'] ?>" class="btn-delete" onclick="return confirm('Supprimer cet utilisateur ?')">Supprimer</a>
+                                <a href="edit_user.php?id=<?= $row['id'] ?>" class="btn-edit">
+                                    <i class="fas fa-edit"></i> Modifier
+                                </a>
+                                <a href="manage_users.php?delete_id=<?= $row['id'] ?>" class="btn-delete" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet utilisateur ?')">
+                                    <i class="fas fa-trash"></i> Supprimer
+                                </a>
                             </td>
                         </tr>
                     <?php endwhile; ?>
                 <?php else: ?>
                     <tr>
-                        <td colspan="6">Aucun utilisateur trouvé.</td>
+                        <td colspan="6" class="no-users">
+                            <i class="fas fa-users-slash"></i> Aucun utilisateur trouvé
+                        </td>
                     </tr>
                 <?php endif; ?>
             </tbody>
         </table>
     </main>
+
+    <footer>
+        &copy; <?php echo date("Y"); ?> Animatch. Tous droits réservés.
+    </footer>
 </body>
 </html>
