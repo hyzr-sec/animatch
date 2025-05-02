@@ -76,9 +76,9 @@ if (isset($_GET['id'])) {
                 </div>
 
                 <?php if ($animal['status'] === 'Available'): ?>
-                    <form method="post" action="request_adoption.php" class="adoption-form">
+                    <form method="post" action="request_adoption.php" class="adoption-form" onsubmit="return showAdoptionAlert();">
                         <input type="hidden" name="animal_id" value="<?= $animal['id'] ?>">
-                        <button type="submit" class="btn-adopt">
+                        <button type="submit" class="btn-adopt" >
                             <i class="fas fa-heart"></i> Faire une demande d'adoption
                         </button>
                     </form>
@@ -88,8 +88,15 @@ if (isset($_GET['id'])) {
         </div>
     </main>
 
+
     <footer>
         &copy; <?php echo date("Y"); ?> Animatch. Tous droits réservés.
     </footer>
 </body>
+<script>
+function showAdoptionAlert() {
+    alert("Demande d'adoption envoyée avec succès !");
+    return true; 
+}
+</script>
 </html>
