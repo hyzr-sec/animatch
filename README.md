@@ -44,7 +44,7 @@ Animatch/
 1. **Clone the repo:**
 
    ```bash
-   git clone https://github.com/yourusername/animatch.git
+   git clone https://github.com/hyzr/animatch.git
    cd animatch
    ```
 
@@ -81,4 +81,4 @@ MIT — feel free to fork, modify, and improve!
 
 ## 🙌 Credits
 
-Built by [Your Name], 2025.
+Built by [hyzr - Hela], 2025.
