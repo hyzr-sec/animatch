@@ -6,8 +6,15 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'admin') {
 }
 require_once "db.php";
 $id = $_GET['id'];
-$res = $conn->query("SELECT * FROM animals WHERE id = $id");
-$animal = $res->fetch_assoc();
+$stmt = $conn->prepare("SELECT * FROM animals WHERE id = ?");
+$stmt->bind_param("i", $id);
+$stmt->execute();
+$res = $stmt->get_result();
+// Check if the animal exists
+if ($res->num_rows == 0) {
+    echo "Animal not found!";
+    exit();
+}
 ?>
 <!DOCTYPE html>
 <html lang="fr">

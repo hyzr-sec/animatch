@@ -10,16 +10,29 @@ if (isset($_GET['id'])) {
     $user_id = $_GET['id'];
 
     // Fetch user data to populate the edit form
-    $query = "SELECT id, name, email, role, status FROM users WHERE id = $user_id";
-    $result = $conn->query($query);
-    $user = $result->fetch_assoc();
+    $query = "SELECT id, name, email, role, status FROM users WHERE id = ?";
+    $stmt = $conn->prepare($query);
+    $stmt->bind_param("i", $user_id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    if ($result->num_rows === 0) {
+        echo "User not found!";
+        exit;
+    }
+
 
     // Handle form submission to update user info
     if (isset($_POST['update'])) {
         $role = $_POST['role'];
         $status = $_POST['status'];
 
-        $conn->query("UPDATE users SET role = '$role', status = '$status' WHERE id = $user_id");
+        $stmt = $conn->prepare("UPDATE users SET role = '$role', status = '$status' WHERE id = ?");
+        $stmt->bind_param("i", $user_id);
+        if ($stmt->execute()) {
+            echo "User updated successfully!";
+        } else {
+            echo "Error updating user: " . $conn->error;
+        }
         header("Location: manage_users.php");
     }
 } else {

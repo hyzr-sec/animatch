@@ -4,9 +4,17 @@ require_once "db.php";
 
 if (isset($_GET['id'])) {
     $animal_id = $_GET['id'];
-    $query = "SELECT * FROM animals WHERE id = $animal_id";
-    $result = $conn->query($query);
-    $animal = $result->fetch_assoc();
+    $query = "SELECT * FROM animals WHERE id = ?";
+    $stmt = $conn->prepare($query);
+    $stmt->bind_param("i", $animal_id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    if ($result->num_rows > 0) {
+        $animal = $result->fetch_assoc();
+    } else {
+        header("Location: adopt.php");
+        exit();
+    }
 } else {
     header("Location: adopt.php");
     exit();
