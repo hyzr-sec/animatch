@@ -5,7 +5,7 @@ if (isset($_POST['id'])) {
     $id = $_POST['id'];
 
     // Step 1: Fetch the image path from the database
-    $stmt = $conn->query("SELECT image_path FROM animals WHERE id = ?");
+    $stmt = $conn->prepare("SELECT image_path FROM animals WHERE id = ?");
     $stmt->bind_param("i", $id);
     $stmt->execute();
     $result = $stmt->get_result();
